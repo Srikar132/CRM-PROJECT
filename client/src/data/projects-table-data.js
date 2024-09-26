@@ -3,7 +3,6 @@ export const projectsTableData = [
     img: "src/assets/img/logo-xd.svg",
     name: "Material XD Version",
     members: [
-     
       { img: "src/assets/img/team-1.jpeg", name: "Romina Hadid" },
       { img: "src/assets/img/team-2.jpeg", name: "Ryan Tompson" },
       { img: "src/assets/img/team-3.jpeg", name: "Jessica Doe" },

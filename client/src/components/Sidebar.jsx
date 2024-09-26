@@ -8,14 +8,15 @@ import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { routes } from "../routes";
 import { useStore } from "../store";
-import UseClickOutside from "./UseClickOuside";
+import UseClickOutside from "./UseClickOutside";
 export function Sidenav() {
-  const {openSidenav , setOpenSidenav} = useStore();
+  const {openSidenav , setOpenSidenav , isDarkMode} = useStore();
   const [activeRoute, setActiveRoute] = useState(null);
   const ref = useRef();
 
   UseClickOutside(ref ,() =>  setOpenSidenav(false));
 
+  const theme = isDarkMode ? "bg-black text-white" : "bg-white text-black";
 
   return (
     <motion.aside
@@ -25,16 +26,16 @@ export function Sidenav() {
         duration : 0.5,
         ease : "easeInOut"
       }}
-      className="bg-white flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0"
+      className={`${theme} flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0`}
     >
       <Link to="/">
-        <Typography className="font-bold text-center text-2xl text-black uppercase tracking-wider p-2">
+        <Typography className={`font-bold text-center text-2xl ${theme} uppercase tracking-wider p-2`}>
           Admin Dashboard
         </Typography>
       </Link>
 
-      <div>
-        <ul className="w-full gap-4 flex flex-col">
+      
+        <ul className="w-full gap-4 flex flex-col flex-1">
           {routes.map((route, index) => {
             return route.routes ? (
               <SubMenu
@@ -42,18 +43,19 @@ export function Sidenav() {
                 route={route}
                 isActive={activeRoute === route.name}
                 setActiveRoute={setActiveRoute}
+                isDarkMode={isDarkMode}
               />
             ) : (
-              <li key={index} className="w-full">
+              <li key={index} className={`w-full ${route.name == "settings" ? "mt-auto": ""}`}>
                 <NavLink to={`/dashboard/${route.path}`}>
                   {({ isActive }) => (
                     <Button
                       onClick={() => setActiveRoute(route.name)}
                       variant={isActive ? "gradient" : "text"}
                       color={isActive ? "blue-gray" : "white"}
-                      className={`flex items-center gap-4 p-4 px-6 capitalize ${
+                      className={`flex items-center gap-4 p-3 px-6 capitalize ${
                         isActive
-                          ? "bg-black !text-white hover:bg-black/70"
+                          ? (isDarkMode ?  "bg-blue-500 !text-white hover:bg-blue-500/90" : "bg-black !text-white hover:bg-black/70")
                           : "bg-white text-black hover:bg-gray-200"
                       }`}
                       fullWidth
@@ -72,12 +74,12 @@ export function Sidenav() {
             );
           })}
         </ul>
-      </div>
+      
     </motion.aside>
   );
 }
 
-const SubMenu = ({ route, setActiveRoute }) => {
+const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -86,15 +88,15 @@ const SubMenu = ({ route, setActiveRoute }) => {
   };
 
   return (
-    <div>
+    <li>
       <Button
         onClick={handleToggle}
         variant={isOpen ? "gradient" : "text"}
         color={isOpen ? "blue-gray" : "white"}
-        className={`flex items-center gap-4 p-4 px-6 capitalize ${
+        className={`flex items-center gap-4 p-3 px-6 capitalize ${
           isOpen
-            ? "bg-black !text-white hover:bg-black/70"
-            : "bg-white text-black hover:bg-gray-200"
+          ? (isDarkMode ?  "bg-blue-500 !text-white hover:bg-blue-500/90" : "bg-black !text-white hover:bg-black/70")
+          : "bg-white text-black hover:bg-gray-200"
         }`}
         fullWidth
       >
@@ -131,9 +133,9 @@ const SubMenu = ({ route, setActiveRoute }) => {
                 >
                   {({ isActive }) => (
                     <div className="flex gap-2 h-12">
-                      <span className="w-[1px] h-[122%] relative bg-black">
+                      <span className={`w-[1px] h-[122%] relative ${isDarkMode ? "bg-white" : "bg-black"}`}>
                         {index !== 0 && index !== subRoute.length - 1 && (
-                          <div className="absolute top-[-5px] w-2 h-2 bg-black rounded-full left-[-3px]"></div>
+                          <div className={`absolute top-[-5px] w-2 h-2  rounded-full left-[-3px] ${isDarkMode ? "bg-white" : "bg-black"}`}></div>
                         )}
                       </span>
                       <Button
@@ -142,8 +144,8 @@ const SubMenu = ({ route, setActiveRoute }) => {
                         color={isActive ? "blue-gray" : "white"}
                         className={`flex-1 flex items-center gap-4 p-3 px-6 capitalize ${
                           isActive
-                            ? "bg-gray-400 !text-white hover:bg-black/70"
-                            : "bg-white text-black hover:bg-gray-200"
+                          ? (isDarkMode ?  "bg-blue-300 !text-white hover:bg-blue-300/90" : "bg-black !text-white hover:bg-black/70")
+                          : "bg-white text-black hover:bg-gray-200"
                         }`}
                         fullWidth
                       >
@@ -163,7 +165,7 @@ const SubMenu = ({ route, setActiveRoute }) => {
           </ul>
         )}
       </motion.div>
-    </div>
+    </li>
   );
 };
 
