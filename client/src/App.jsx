@@ -6,6 +6,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to={"/admin-dashboard/home"}/>} />
       <Route path="/admin-dashboard/*" element={<AdminDashboard/>}/>
     </Routes>
   );
