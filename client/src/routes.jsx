@@ -1,43 +1,59 @@
-import { FaUsers, FaHome, FaTasks, FaFileAlt, FaEdit, FaEye } from "react-icons/fa";
+import { FaUsers, FaUserMd, FaHome, FaTasks, FaMoneyBillWave, FaEdit, FaChartLine, FaCog } from "react-icons/fa";
+
+// componets
+import { Home } from "./components/dashboard";
+const Component = () => {
+  return (
+    <>
+      Dummy Component
+    </>
+  )
+}
+const icon = {
+  className: "text-2xl",
+};
 
 export const routes = [
   {
-    layout: "dashboard",
-    title: "Customers",
-    icon: FaUsers,
-    pages: [
-      { name: "customers list", path: "/customers/list", icon: FaEye },
-      { name: "update customers", path: "/customers/update", icon: FaEdit },
+    name: "dashboard",
+    path: "home",
+    icon: <FaHome {...icon} />,
+    element: <Home />,
+  },
+  {
+    name: "employees",
+    path: "employees",
+    icon: <FaUsers {...icon} />, 
+    element: <Component />,
+  },
+  {
+    name: "customers",
+    path: "customers",
+    icon: <FaUserMd {...icon} />, 
+    element: <Component />,
+  },
+  {
+    name: "Analytics",
+    icon: <FaChartLine {...icon} />,
+    routes: [
+      {
+        name: "revenue",
+        path: "revenue",
+        icon: <FaMoneyBillWave {...icon} />, 
+        element: <Component />,
+      },
+      {
+        name: "salaries",
+        path: "salaries",
+        icon: <FaTasks {...icon} />, 
+        element: <Component />,
+      },
     ],
   },
   {
-    layout: "dashboard",
-    title: "Employers",
-    icon: FaHome,
-    pages: [
-      { name: "employers list", path: "/employers/list", icon: FaEye },
-      { name: "update employers", path: "/employers/update", icon: FaEdit },
-    ],
-  },
-  {
-    layout: "dashboard",
-    title: "Reports",
-    icon: FaFileAlt,
-    pages: [{ name: "view reports", path: "/reports/view", icon: FaEye }],
-  },
-  {
-    layout: "dashboard",
-    title: "Tasks",
-    icon: FaTasks,
-    pages: [
-      { name: "add tasks", path: "/tasks/add", icon: FaEdit },
-      { name: "edit tasks", path: "/tasks/edit", icon: FaEdit },
-    ],
-  },
-  {
-    layout: "dashboard",
-    title: "Transactions",
-    icon: FaFileAlt,
-    pages: [{ name: "view transactions", path: "/transactions/view", icon: FaEye }],
+    name: "settings",
+    path: "settings",
+    icon: <FaCog {...icon} />, 
+    element: <Component />,
   },
 ];

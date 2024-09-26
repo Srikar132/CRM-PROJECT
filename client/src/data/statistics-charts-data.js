@@ -1,5 +1,4 @@
-import { chartsConfig } from "../configs";
-
+import {chartsConfig} from '../configs'
 const websiteViewsChart = {
   type: "bar",
   height: 220,
@@ -10,8 +9,11 @@ const websiteViewsChart = {
     },
   ],
   options: {
-    ...chartsConfig,
-    colors: "#388e3c",
+    chart: {
+      background: "#1e88e5", // Blue background
+      foreColor: "#ffffff",  // White text and axis colors
+    },
+    colors: ["#ffffff"],  // White bar color for contrast
     plotOptions: {
       bar: {
         columnWidth: "16%",
@@ -19,8 +21,23 @@ const websiteViewsChart = {
       },
     },
     xaxis: {
-      ...chartsConfig.xaxis,
       categories: ["M", "T", "W", "T", "F", "S", "S"],
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    grid: {
+      show: true,
+     // To match a more minimal style
     },
   },
 };
@@ -35,75 +52,85 @@ const dailySalesChart = {
     },
   ],
   options: {
-    ...chartsConfig,
-    colors: ["#0288d1"],
+    chart: {
+      background: "#66bb6a", // Green background
+      foreColor: "#ffffff",  // White text and axis colors
+    },
+    colors: ["#ffffff"],  // White line color for contrast
     stroke: {
-      lineCap: "round",
+      width: 3,
+      curve: 'smooth',
     },
     markers: {
       size: 5,
+      colors: ["#ffffff"],
     },
     xaxis: {
-      ...chartsConfig.xaxis,
-      categories: [
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    grid: {
+      show: true,
     },
   },
 };
 
-const completedTaskChart = {
+const completedTasksChart = {
   type: "line",
   height: 220,
-  series: [
-    {
-      name: "Sales",
-      data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-    },
-  ],
-  options: {
-    ...chartsConfig,
-    colors: ["#388e3c"],
-    stroke: {
-      lineCap: "round",
-    },
-    markers: {
-      size: 5,
-    },
-    xaxis: {
-      ...chartsConfig.xaxis,
-      categories: [
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-    },
-  },
-};
-const completedTasksChart = {
-  ...completedTaskChart,
   series: [
     {
       name: "Tasks",
       data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
     },
   ],
+  options: {
+    chart: {
+      background: "#424242", // Dark background
+      foreColor: "#ffffff",  // White text and axis colors
+    },
+    colors: ["#ffffff"],  // White line color for contrast
+    stroke: {
+      width: 3,
+      curve: 'smooth',
+    },
+    markers: {
+      size: 5,
+      colors: ["#ffffff"],
+    },
+    xaxis: {
+      categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#ffffff", // White labels
+        },
+      },
+    },
+    grid: {
+      show: true,
+    },
+  },
 };
 
+// Export the charts data with the applied styles
 export const statisticsChartsData = [
   {
     color: "white",

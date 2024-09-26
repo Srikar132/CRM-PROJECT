@@ -1,125 +1,179 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FaUsers, FaHome, FaTasks, FaFileAlt, FaEdit, FaEye } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import { Button, IconButton, Typography } from "@material-tailwind/react";
+import {
+  FaChevronDown,
+} from "react-icons/fa";
+import { Button, Typography } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { useMaterialTailwindController, setOpenSidenav } from "../context";
 import { routes } from "../routes";
+import { useStore } from "../store";
+import UseClickOutside from "./UseClickOutside";
+export function Sidenav() {
+  const {openSidenav , setOpenSidenav} = useStore();
+  const [activeRoute, setActiveRoute] = useState(null);
+  const ref = useRef();
 
-// Submenu component for handling sub-routes with enhanced animation
-const Submenu = ({ title, pages, icon: Icon }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  UseClickOutside(ref ,() =>  setOpenSidenav(false));
 
-  return (
-    <li className="mb-1">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center w-full px-4 py-3 text-center capitalize transition-all hover:bg-gray-700 rounded-lg"
-      >
-        <div className="flex items-center">
-          <Icon className="h-5 w-5 text-gray-300 mr-6" />
-          <Typography variant="small" className="font-medium text-gray-300">
-            {title}
-          </Typography>
-        </div>
-      </button>
-      <motion.ul
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-        className="pl-6 mt-2 overflow-hidden"
-      >
-        {pages.map(({ name, path, icon: PageIcon }, idx) => (
-          <li key={idx}>
-            <NavLink to={path}>
-              {({ isActive }) => (
-                <Button
-                  variant={isActive ? "gradient" : "text"}
-                  color={isActive ? "blue" : "gray"}
-                  className="w-full flex items-center gap-4 px-4 py-2 text-left capitalize hover:bg-gray-600 transition-all rounded-lg"
-                >
-                  <PageIcon className="h-5 w-5 text-gray-300" />
-                  <Typography variant="small" className="font-medium text-gray-300">
-                    {name}
-                  </Typography>
-                </Button>
-              )}
-            </NavLink>
-          </li>
-        ))}
-      </motion.ul>
-    </li>
-  );
-};
-
-Submenu.propTypes = {
-  title: PropTypes.string.isRequired,
-  pages: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      path: PropTypes.string.isRequired,
-      icon: PropTypes.elementType,
-    })
-  ).isRequired,
-  icon: PropTypes.elementType.isRequired,
-};
-
-// Main Sidenav component with enhanced styles and animations
-export function Sidenav({ brandImg, brandName }) {
-  const [controller, dispatch] = useMaterialTailwindController();
-  const { sidenavColor, sidenavType, openSidenav } = controller;
-  const sidenavTypes = {
-    dark: "bg-gray-900",
-    white: "bg-gray-900 shadow-lg",
-    transparent: "bg-gray-900",
-  };
 
   return (
-    <aside
-      className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
-        } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-gray-700 shadow-xl`}
+    <motion.aside
+      ref = {ref}
+      animate={{ left: openSidenav ? 0 : "-100%" }}
+      transition={{
+        duration : 0.5,
+        ease : "easeInOut"
+      }}
+      className="bg-white flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0"
     >
-      {/* Sidebar header */}
-      <div className="relative flex justify-between items-center py-6 px-8 bg-gray-800 rounded-t-xl">
-        <Link to="/" className="text-center">
-          <Typography variant="h5" color="white" className="font-bold text-center">
-            {brandName}
-          </Typography>
-        </Link>
-        <IconButton
-          variant="text"
-          color="white"
-          size="sm"
-          ripple={false}
-          className="xl:hidden"
-          onClick={() => setOpenSidenav(dispatch, false)}
-        >
-          <MdClose className="h-5 w-5 text-white" />
-        </IconButton>
-      </div>
+      <Link to="/">
+        <Typography className="font-bold text-center text-2xl text-black uppercase tracking-wider p-2">
+          Admin Dashboard
+        </Typography>
+      </Link>
 
-      {/* Sidebar content */}
-      <div className="m-4 bg-gray-900 rounded-md">
-        {routes.map(({ layout, title, pages, icon: Icon }, key) => (
-          <ul key={key} className="mb-4 flex flex-col gap-2 bg-gray-700 rounded-2xl">
-            <Submenu title={title} pages={pages} icon={Icon} />
-          </ul>
-        ))}
+      <div>
+        <ul className="w-full gap-4 flex flex-col">
+          {routes.map((route, index) => {
+            return route.routes ? (
+              <SubMenu
+                key={index}
+                route={route}
+                isActive={activeRoute === route.name}
+                setActiveRoute={setActiveRoute}
+              />
+            ) : (
+              <li key={index} className="w-full">
+                <NavLink to={`/dashboard/${route.path}`}>
+                  {({ isActive }) => (
+                    <Button
+                      onClick={() => setActiveRoute(route.name)}
+                      variant={isActive ? "gradient" : "text"}
+                      color={isActive ? "blue-gray" : "white"}
+                      className={`flex items-center gap-4 p-4 px-6 capitalize ${
+                        isActive
+                          ? "bg-black !text-white hover:bg-black/70"
+                          : "bg-white text-black hover:bg-gray-200"
+                      }`}
+                      fullWidth
+                    >
+                      {route.icon || <FaChevronDown />} {/* Fallback Icon */}
+                      <Typography
+                        color="inherit"
+                        className="font-medium text-[1.4em] uppercase tracking-wider"
+                      >
+                        {route.name}
+                      </Typography>
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-    </aside>
+    </motion.aside>
   );
 }
 
-Sidenav.defaultProps = {
-  brandImg: "/img/logo-ct.png",
-  brandName: "Admin Dashboard",
+const SubMenu = ({ route, setActiveRoute }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+    setActiveRoute(route.name);
+  };
+
+  return (
+    <div>
+      <Button
+        onClick={handleToggle}
+        variant={isOpen ? "gradient" : "text"}
+        color={isOpen ? "blue-gray" : "white"}
+        className={`flex items-center gap-4 p-4 px-6 capitalize ${
+          isOpen
+            ? "bg-black !text-white hover:bg-black/70"
+            : "bg-white text-black hover:bg-gray-200"
+        }`}
+        fullWidth
+      >
+        {route.icon || <FaChevronDown />} {/* Fallback Icon */}
+        <div className="flex-1 flex items-center justify-between">
+          <Typography
+            color="inherit"
+            className="font-medium text-[1.4em] uppercase tracking-wider"
+          >
+            {route.name}
+          </Typography>
+          <FaChevronDown
+            className={`text-xl justify-self-end transform transition-transform duration-300 ${
+              isOpen ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </div>
+      </Button>
+
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="overflow-hidden"
+      >
+        {isOpen && route.routes && (
+          <ul className="pl-6 flex flex-col gap-0">
+            {route.routes.map((subRoute, index) => (
+              <li key={index} className="py-2">
+                <NavLink
+                  to={`/dashboard/${subRoute.path}`}
+                  className="text-xl font-light hover:text-gray-800"
+                  onClick={() => setActiveRoute(subRoute.name)}
+                >
+                  {({ isActive }) => (
+                    <div className="flex gap-2 h-12">
+                      <span className="w-[1px] h-[122%] relative bg-black">
+                        {index !== 0 && index !== subRoute.length - 1 && (
+                          <div className="absolute top-[-5px] w-2 h-2 bg-black rounded-full left-[-3px]"></div>
+                        )}
+                      </span>
+                      <Button
+                        onClick={() => setActiveRoute(subRoute.name)}
+                        variant={isActive ? "gradient" : "text"}
+                        color={isActive ? "blue-gray" : "white"}
+                        className={`flex-1 flex items-center gap-4 p-3 px-6 capitalize ${
+                          isActive
+                            ? "bg-gray-400 !text-white hover:bg-black/70"
+                            : "bg-white text-black hover:bg-gray-200"
+                        }`}
+                        fullWidth
+                      >
+                        {subRoute.icon || <FaChevronDown />} {/* Fallback Icon */}
+                        <Typography
+                          color="inherit"
+                          className="font-medium text-[1.4em] uppercase tracking-wider"
+                        >
+                          {subRoute.name}
+                        </Typography>
+                      </Button>
+                    </div>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        )}
+      </motion.div>
+    </div>
+  );
 };
 
 Sidenav.propTypes = {
-  brandImg: PropTypes.string,
-  brandName: PropTypes.string,
-  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  route: PropTypes.shape({
+    icon: PropTypes.node,
+    name: PropTypes.string.isRequired,
+    path: PropTypes.string,
+    routes: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 export default Sidenav;
