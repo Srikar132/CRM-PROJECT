@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Routes, Route,Navigate} from "react-router-dom";
 import { Sidenav } from "./components/Sidebar"; // Assuming Sidebar component
 import {routes} from "./routes"; // The route definitions
-import { useMaterialTailwindController } from "./context"; // Assuming you're using Tailwind Controller context
 import { Home } from "./components/dashboard";
 import Navbar from "./components/Navbar";
+import { useStore } from "./store";
 function App() {
-  const [controller] = useMaterialTailwindController();
-  const { sidenavType } = controller; // Using the sidenav type from the controller
-  
+  const {isDarkMode} = useStore();
   return (
-    <div className="h-screen bg-blue-gray-50/50 overflow-hidden flex">
+    <div className={`h-screen ${isDarkMode ? "bg-black" : "bg-blue-gray-50/50"} overflow-hidden flex`}>
         {/* Sidebar */}
         <Sidenav
           routes={routes}

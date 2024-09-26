@@ -105,45 +105,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {/* <Transition
-        show={isOpen}
-        enter="transition ease-out duration-100 transform"
-        enterFrom="opacity-0 scale-95"
-        enterTo="opacity-100 scale-100"
-        leave="transition ease-in duration-75 transform"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
-      >
-        {/* <div className="md:hidden" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              className={`${
-                isDarkMode ? 'text-gray-300' : 'text-gray-600'
-              } hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium`}
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/users"
-              className={`${
-                isDarkMode ? 'text-gray-300' : 'text-gray-600'
-              } hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium`}
-            >
-              Users
-            </Link>
-            <Link
-              to="/analytics"
-              className={`${
-                isDarkMode ? 'text-gray-300' : 'text-gray-600'
-              } hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium`}
-            >
-              Analytics
-            </Link>
-          </div>
-        </div> */}
-      {/* </Transition> */} 
 
       {/* Notification Dropdown */}
       <Transition
