@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
 import { FaHome, FaBell, FaCog, FaChevronDown, FaSearch, FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa'; // Import dark/light mode icons
-import { useStore } from '../../store';
+import { useStore } from '../../../store';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);

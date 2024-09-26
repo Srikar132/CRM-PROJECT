@@ -47,7 +47,7 @@ export function Sidenav() {
               />
             ) : (
               <li key={index} className={`w-full ${route.name == "settings" ? "mt-auto": ""}`}>
-                <NavLink to={`/dashboard/${route.path}`}>
+                <NavLink to={`/admin-dashboard/${route.path}`}>
                   {({ isActive }) => (
                     <Button
                       onClick={() => setActiveRoute(route.name)}
@@ -127,7 +127,7 @@ const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
             {route.routes.map((subRoute, index) => (
               <li key={index} className="py-2">
                 <NavLink
-                  to={`/dashboard/${subRoute.path}`}
+                  to={`/admin-dashboard/${subRoute.path}`}
                   className="text-xl font-light hover:text-gray-800"
                   onClick={() => setActiveRoute(subRoute.name)}
                 >
