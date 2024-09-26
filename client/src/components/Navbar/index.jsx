@@ -83,7 +83,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="-mr-2 flex md:hidden">
+          {/* <div className="-mr-2 flex md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
@@ -92,7 +92,7 @@ const Navbar = () => {
               <span className="sr-only">Open main menu</span>
               {isOpen ? <FaChevronDown className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -106,7 +106,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <Transition
+      {/* <Transition
         show={isOpen}
         enter="transition ease-out duration-100 transform"
         enterFrom="opacity-0 scale-95"
@@ -115,7 +115,7 @@ const Navbar = () => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <div className="md:hidden" id="mobile-menu">
+        {/* <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
               to="/"
@@ -142,8 +142,8 @@ const Navbar = () => {
               Analytics
             </Link>
           </div>
-        </div>
-      </Transition>
+        </div> */}
+      {/* </Transition> */} 
 
       {/* Notification Dropdown */}
       <Transition
