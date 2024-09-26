@@ -2,10 +2,10 @@ import { FaUsers, FaUserMd, FaHome, FaTasks, FaMoneyBillWave, FaEdit, FaChartLin
 
 // componets
 import Home from "./components/admin-dashboard/Home";
-const Component = () => {
+const Component = ({name}) => {
   return (
     <>
-      Dummy Component
+      {name}
     </>
   )
 }
@@ -24,13 +24,13 @@ export const routes = [
     name: "employees",
     path: "employees",
     icon: <FaUsers {...icon} />, 
-    element: <Component />,
+    element: <Component name={"employees"} />,
   },
   {
     name: "customers",
     path: "customers",
     icon: <FaUserMd {...icon} />, 
-    element: <Component />,
+    element: <Component  name={"customers"}/>,
   },
   {
     name: "Analytics",
