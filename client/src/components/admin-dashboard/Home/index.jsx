@@ -23,17 +23,18 @@ import {
   UsersIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/solid";
-import { StatisticsCard } from "../cards";
-import { StatisticsChart } from "../charts";
+import { StatisticsCard } from "../../cards";
+import { StatisticsChart } from "../../charts";
 import {
   statisticsCardsData,
   statisticsChartsData,
   projectsTableData,
   ordersOverviewData,
-} from "../../data";
+} from "../../../data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 
 export function Home() {
+  console.log("In home");
   return (
     <div className="mt-12">
       {/* Statistics Cards Section */}

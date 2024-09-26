@@ -1,7 +1,7 @@
 import { FaUsers, FaUserMd, FaHome, FaTasks, FaMoneyBillWave, FaEdit, FaChartLine, FaCog } from "react-icons/fa";
 
 // componets
-import { Home } from "./components/dashboard";
+import Home from "./components/admin-dashboard/Home";
 const Component = () => {
   return (
     <>
