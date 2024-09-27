@@ -17,12 +17,6 @@ import {
   EllipsisVerticalIcon,
   ArrowUpIcon,
 } from "@heroicons/react/24/outline";
-import {
-  BanknotesIcon,
-  UserPlusIcon,
-  UsersIcon,
-  ChartBarIcon,
-} from "@heroicons/react/24/solid";
 import { StatisticsCard } from "../../cards";
 import { StatisticsChart } from "../../charts";
 import {
@@ -32,59 +26,49 @@ import {
   ordersOverviewData,
 } from "../../../data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
-
+import { useStore } from "../../../store";
 export function Home() {
-  console.log("In home");
+  const {isDarkMode} = useStore()
   return (
     <div className="mt-12">
-      {/* Statistics Cards Section */}
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
-        {statisticsCardsData.map(({ icon, title, footer, cardBgColor, iconBgColor, ...rest }) => (
-          <div
+        {statisticsCardsData.map(({ icon, title, footer, ...rest }) => (
+          <StatisticsCard
             key={title}
-            style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }} // Added shadow effect for the card
-            className={`p-0 ${cardBgColor} rounded-2xl`} // Additional styling for the card
-          >
-            <StatisticsCard
-              {...rest}
-              title={title}
-              icon={React.createElement(icon, {
-                className: `w-[40px] h-[40px] text-white ${iconBgColor} m-2  rounded-lg  mb-10 mr-6`, // Increased icon height and width
-              })}
-              footer={
-                <Typography className="font-normal text-blue-gray-600">
-                  <strong className={`${footer.color}`}>{footer.value}</strong>
-                  &nbsp;{footer.label}
-                </Typography>
-              }
-            />
-          </div>
+            {...rest}
+            title={title}
+            icon={React.createElement(icon, {
+              className: "w-6 h-6 text-white",
+            })}
+            footer={
+              <Typography className="font-normal text-blue-gray-600">
+                <strong className={footer.color}>{footer.value}</strong>
+                &nbsp;{footer.label}
+              </Typography>
+            }
+          />
         ))}
       </div>
-      {/* Statistics Charts Section */}
       <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
         {statisticsChartsData.map((props) => (
-          <div className="relative transform -translate-y-6 shadow-lg transition-transform duration-300 hover:-translate-y-4">
-            <StatisticsChart
-              key={props.title}
-              {...props}
-              footer={
-                <Typography
-                  variant="small"
-                  className="flex items-center font-normal text-blue-gray-600"
-                >
-                  <ClockIcon strokeWidth={2} className="h-4 w-4 text-blue-gray-400" />
-                  &nbsp;{props.footer}
-                </Typography>
-              }
-            />
-          </div>
+          <StatisticsChart
+            key={props.title}
+            {...props}
+            footer={
+              <Typography
+                variant="small"
+                className="flex items-center font-normal text-blue-gray-600"
+              >
+                <ClockIcon strokeWidth={2} className="h-4 w-4 text-blue-gray-400" />
+                &nbsp;{props.footer}
+              </Typography>
+            }
+          />
         ))}
       </div>
-
-      {/* Projects Table Section */}
-      <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <Card className="overflow-hidden xl:col-span-2 border border-blue-gray-100 shadow-lg transition-transform duration-300 hover:shadow-2xl">
+     {/* Projects Table Section */}
+     <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <Card className={`overflow-hidden xl:col-span-2 border ${isDarkMode ? "border-gray-700 text-white" : "border-blue-gray-100"} shadow-lg transition-transform duration-300 hover:shadow-2xl ${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
           <CardHeader
             floated={false}
             shadow={false}
@@ -92,20 +76,20 @@ export function Home() {
             className="m-0 flex items-center justify-between p-6"
           >
             <div>
-              <Typography variant="h6" color="blue-gray" className="mb-1">
+              <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"} className="mb-1">
                 Projects
               </Typography>
               <Typography
                 variant="small"
-                className="flex items-center gap-1 font-normal text-blue-gray-600"
+                className={`flex items-center gap-1 font-normal ${isDarkMode ? "text-gray-400" : "text-blue-gray-600"}`}
               >
-                <CheckCircleIcon strokeWidth={3} className="h-4 w-4 text-blue-gray-200" />
+                <CheckCircleIcon strokeWidth={3} className={`h-4 w-4 ${isDarkMode ? "text-gray-600" : "text-blue-gray-200"}`} />
                 <strong>30 done</strong> this month
               </Typography>
             </div>
             <Menu placement="left-start">
               <MenuHandler>
-                <IconButton size="sm" variant="text" color="blue-gray">
+                <IconButton size="sm" variant="text" color={isDarkMode ? "gray" : "blue-gray"}>
                   <EllipsisVerticalIcon
                     strokeWidth={3}
                     fill="currenColor"
@@ -120,18 +104,18 @@ export function Home() {
               </MenuList>
             </Menu>
           </CardHeader>
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          <CardBody className={`overflow-x-scroll px-0 pt-0 pb-2 ${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
                   {["companies", "members", "budget", "completion"].map((el) => (
                     <th
                       key={el}
-                      className="border-b border-blue-gray-50 py-3 px-6 text-left"
+                      className={`border-b ${isDarkMode ? "border-gray-700" : "border-blue-gray-50"} py-3 px-6 text-left`}
                     >
                       <Typography
                         variant="small"
-                        className="text-[11px] font-medium uppercase text-blue-gray-400"
+                        className={`text-[11px] font-medium uppercase ${isDarkMode ? "text-gray-500" : "text-blue-gray-400"}`}
                       >
                         {el}
                       </Typography>
@@ -141,16 +125,14 @@ export function Home() {
               </thead>
               <tbody>
                 {projectsTableData.map(({ img, name, members, budget, completion }, key) => {
-                  const className = `py-3 px-5 \${
-                    key === projectsTableData.length - 1 ? "" : "border-b border-blue-gray-50"
-                  }`;
+                  const className = `py-3 px-5 ${key === projectsTableData.length - 1 ? "" : `border-b ${isDarkMode ? "border-gray-700" : "border-blue-gray-50"}`}`;
 
                   return (
                     <tr key={name}>
                       <td className={className}>
                         <div className="flex items-center gap-4">
                           <Avatar src={img} alt={name} size="sm" className="w-10 h-10" />
-                          <Typography variant="small" color="blue-gray" className="font-bold">
+                          <Typography variant="small" color={isDarkMode ? "white" : "blue-gray"} className="font-bold">
                             {name}
                           </Typography>
                         </div>
@@ -163,9 +145,7 @@ export function Home() {
                               alt={name}
                               size="xs"
                               variant="circular"
-                              className={`cursor-pointer border-2 border-white \${
-                                key === 0 ? "" : "-ml-2.5"
-                              }`}
+                              className={`cursor-pointer border-2 border-white ${key === 0 ? "" : "-ml-2.5"}`}
                             />
                           </Tooltip>
                         ))}
@@ -197,48 +177,44 @@ export function Home() {
         </Card>
 
         {/* Orders Overview Section */}
-        <Card className="border border-blue-gray-100 shadow-lg transition-transform duration-300 hover:shadow-2xl">
+        <Card className={`border ${isDarkMode ? "border-gray-700 text-white" : "border-blue-gray-100"} shadow-lg transition-transform duration-300 hover:shadow-2xl ${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
           <CardHeader
             floated={false}
             shadow={false}
             color="transparent"
             className="m-0 p-6"
           >
-            <Typography variant="h6" color="blue-gray" className="mb-2">
+            <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"} className="mb-2">
               Orders Overview
             </Typography>
             <Typography
               variant="small"
-              className="flex items-center gap-1 font-normal text-blue-gray-600"
+              className={`flex items-center gap-1 font-normal ${isDarkMode ? "text-gray-400" : "text-blue-gray-600"}`}
             >
-              <ArrowUpIcon strokeWidth={3} className="h-3.5 w-3.5 text-green-500" />
-              <strong>24%</strong> this month
+              <ArrowUpIcon strokeWidth={2} className={`h-4 w-4 ${isDarkMode ? "text-gray-500" : "text-blue-gray-400"}`} />
+              &nbsp;24% this month
             </Typography>
           </CardHeader>
-          <CardBody className="pt-0">
+          <CardBody className={`px-6 pt-0 pb-2 ${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
             {ordersOverviewData.map(({ icon, color, title, description }, key) => (
               <div key={title} className="flex items-start gap-4 py-3">
-                <div
-                  className={`relative p-1 after:absolute after:-bottom-6 after:left-2/4 after:w-0.5 after:-translate-x-2/4 after:bg-blue-gray-50 after:content-[''] \${
-                    key === ordersOverviewData.length - 1 ? "after:h-0" : "after:h-4/6"
-                  }`}
-                >
+                <div className={`rounded-xl border border-blue-gray-50 bg-blue-gray-50 p-3 ${color}`}>
                   {React.createElement(icon, {
-                    className: `!w-5 !h-5 ${color}`,
+                    className: "h-6 w-6",
+                    strokeWidth: 2,
                   })}
                 </div>
                 <div>
                   <Typography
                     variant="small"
-                    color="blue-gray"
+                    color={isDarkMode ? "white" : "blue-gray"}
                     className="block font-medium"
                   >
                     {title}
                   </Typography>
                   <Typography
-                    as="span"
                     variant="small"
-                    className="text-xs font-medium text-blue-gray-500"
+                    className={`block font-normal ${isDarkMode ? "text-gray-400" : "text-blue-gray-500"}`}
                   >
                     {description}
                   </Typography>

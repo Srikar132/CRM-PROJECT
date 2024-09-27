@@ -1,4 +1,6 @@
-import {chartsConfig} from '../configs'
+import { chartsConfig } from "../configs";
+
+// Website Views Chart Configuration
 const websiteViewsChart = {
   type: "bar",
   height: 220,
@@ -9,39 +11,54 @@ const websiteViewsChart = {
     },
   ],
   options: {
+    ...chartsConfig,
     chart: {
-      background: "#1e88e5", // Blue background
-      foreColor: "#ffffff",  // White text and axis colors
+      background: "#1E90FF", // Blue background for Website Views
+      toolbar: {
+        show: false, // Remove menu (three lines)
+      },
     },
-    colors: ["#ffffff"],  // White bar color for contrast
+    colors: ["#FFFFFF"], // White bars and text
     plotOptions: {
       bar: {
-        columnWidth: "16%",
-        borderRadius: 5,
+        columnWidth: "20%", // Reduced bar width
+        borderRadius: 5, // Rounded bars
       },
     },
     xaxis: {
       categories: ["M", "T", "W", "T", "F", "S", "S"],
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for x-axis labels
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for y-axis labels
         },
       },
     },
     grid: {
-      show: true,
-     // To match a more minimal style
+      show: true, // Show grid for clearer graph lines
+      borderColor: "rgba(255, 255, 255, 0.3)", // Light white grid lines with 30% opacity
+      strokeDashArray: 4, // Dashed grid lines
+      yaxis: {
+        lines: {
+          show: true, // Show grid lines for y-axis (horizontal lines)
+        },
+      },
+      xaxis: {
+        lines: {
+          show: true, // Disable vertical grid lines for x-axis
+        },
+      },
     },
   },
 };
 
+// Daily Sales Chart Configuration
 const dailySalesChart = {
   type: "line",
   height: 220,
@@ -52,40 +69,55 @@ const dailySalesChart = {
     },
   ],
   options: {
+    ...chartsConfig,
     chart: {
-      background: "#66bb6a", // Green background
-      foreColor: "#ffffff",  // White text and axis colors
+      background: "#28a745", // Green background for Daily Sales
+      toolbar: {
+        show: false, // Remove menu (three lines)
+      },
     },
-    colors: ["#ffffff"],  // White line color for contrast
+    colors: ["#FFFFFF"], // White line and text
     stroke: {
-      width: 3,
-      curve: 'smooth',
+      lineCap: "round",
+      width: 2,
     },
     markers: {
       size: 5,
-      colors: ["#ffffff"],
     },
     xaxis: {
       categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for x-axis labels
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for y-axis labels
         },
       },
     },
     grid: {
-      show: true,
+      show: true, // Enable grid for Daily Sales
+      borderColor: "rgba(255, 255, 255, 0.3)", // Light white grid lines with 30% opacity
+      strokeDashArray: 4, // Dashed grid lines
+      yaxis: {
+        lines: {
+          show: true, // Show grid lines for y-axis (horizontal lines)
+        },
+      },
+      xaxis: {
+        lines: {
+          show: false, // Disable vertical grid lines for x-axis
+        },
+      },
     },
   },
 };
 
+// Completed Tasks Chart Configuration
 const completedTasksChart = {
   type: "line",
   height: 220,
@@ -96,58 +128,71 @@ const completedTasksChart = {
     },
   ],
   options: {
+    ...chartsConfig,
     chart: {
-      background: "#424242", // Dark background
-      foreColor: "#ffffff",  // White text and axis colors
+      background: "#333333", // Black background for Completed Tasks
+      toolbar: {
+        show: false, // Remove menu (three lines)
+      },
     },
-    colors: ["#ffffff"],  // White line color for contrast
+    colors: ["#FFFFFF"], // White line and text
     stroke: {
-      width: 3,
-      curve: 'smooth',
+      lineCap: "round",
+      width: 2,
     },
     markers: {
       size: 5,
-      colors: ["#ffffff"],
     },
     xaxis: {
       categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for x-axis labels
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: "#ffffff", // White labels
+          colors: "#FFFFFF", // White text for y-axis labels
         },
       },
     },
     grid: {
-      show: true,
+      show: true, // Enable grid for Completed Tasks
+      borderColor: "rgba(255, 255, 255, 0.3)", // Light white grid lines with 30% opacity
+      strokeDashArray: 4, // Dashed grid lines
+      yaxis: {
+        lines: {
+          show: true, // Show grid lines for y-axis (horizontal lines)
+        },
+      },
+      xaxis: {
+        lines: {
+          show: false, // Disable vertical grid lines for x-axis
+        },
+      },
     },
   },
 };
 
-// Export the charts data with the applied styles
 export const statisticsChartsData = [
   {
-    color: "white",
-    title: "Website View",
+    color: "blue",
+    title: "Website Views",
     description: "Last Campaign Performance",
     footer: "campaign sent 2 days ago",
     chart: websiteViewsChart,
   },
   {
-    color: "white",
+    color: "green",
     title: "Daily Sales",
     description: "15% increase in today sales",
     footer: "updated 4 min ago",
     chart: dailySalesChart,
   },
   {
-    color: "white",
+    color: "black",
     title: "Completed Tasks",
     description: "Last Campaign Performance",
     footer: "just updated",

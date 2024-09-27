@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`${isDarkMode ? 'bg-black' : 'bg-white'} shadow-md relative z-20`}>
+    <nav className={`${isDarkMode ? 'bg-black text-white' : 'bg-white'} shadow-md relative z-20`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -129,7 +129,7 @@ const Navbar = () => {
               <a
                 key={notification.id}
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                className={`block px-4 py-2 text-sm text-gray-700 ${isDarkMode ? 'text-white':''} hover:bg-gray-100 hover:text-gray-900`}
                 role="menuitem"
               >
                 <p className="font-medium">{notification.message}</p>
