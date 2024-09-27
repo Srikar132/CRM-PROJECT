@@ -34,11 +34,7 @@ export function Sidenav() {
           Admin Dashboard
         </Typography>
       </Link>
-      {/* <h1 className="text-[30px] font-bold text-center animate-gradient bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 bg-clip-text text-transparent">
-          <Link to='/'>
-          Admin Dashboard
-          </Link>
-        </h1> */}
+    
 
       <ul className="w-full gap-4 flex flex-col flex-1">
         {routes.map((route, index) => {
