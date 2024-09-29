@@ -26,7 +26,7 @@ export function Sidenav() {
         duration : 0.5,
         ease : "easeInOut"
       }}
-      className={`${theme} flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0`}
+      className={`${theme} transition-all duration-300     flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0`}
     >
       <Link to="/">
         <Typography className={`font-bold text-center text-2xl ${theme} uppercase tracking-wider p-2`}>
@@ -56,7 +56,7 @@ export function Sidenav() {
                       className={`flex items-center gap-4 p-3 px-6 capitalize ${
                         isActive
                           ? (isDarkMode ?  "bg-blue-500 !text-white hover:bg-blue-500/90" : "bg-black !text-white hover:bg-black/70")
-                          : "bg-white text-black hover:bg-gray-200"
+                          : ( isDarkMode  ? "bg-black text-white hover:bg-white/30" : "bg-white text-black hover:bg-gray-200")
                       }`}
                       fullWidth
                     >
@@ -95,8 +95,8 @@ const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
         color={isOpen ? "blue-gray" : "white"}
         className={`flex items-center gap-4 p-3 px-6 capitalize ${
           isOpen
-          ? (isDarkMode ?  "bg-blue-500 !text-white hover:bg-blue-500/90" : "bg-black !text-white hover:bg-black/70")
-          : "bg-white text-black hover:bg-gray-200"
+          ? (isDarkMode ?  "bg-white/30 !text-white hover:bg-white/40" : "bg-black/20 text-black hover:text-white hover:bg-black/70")
+          : ( isDarkMode  ? "bg-black text-white hover:bg-white/30" : "bg-white text-black hover:bg-gray-200")
         }`}
         fullWidth
       >
@@ -145,7 +145,7 @@ const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
                         className={`flex-1 flex items-center gap-4 p-3 px-6 capitalize ${
                           isActive
                           ? (isDarkMode ?  "bg-blue-300 !text-white hover:bg-blue-300/90" : "bg-black !text-white hover:bg-black/70")
-                          : "bg-white text-black hover:bg-gray-200"
+                          : ( isDarkMode  ? "bg-black text-white hover:bg-white/30" : "bg-white text-black hover:bg-gray-200")
                         }`}
                         fullWidth
                       >

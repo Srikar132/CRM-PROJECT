@@ -1,14 +1,16 @@
-import { FaUsers, FaUserMd, FaHome, FaTasks, FaMoneyBillWave, FaEdit, FaChartLine, FaCog } from "react-icons/fa";
+import { FaUsers, FaUserMd, FaHome, FaTasks, FaMoneyBillWave, FaEdit, FaChartLine, FaCog, FaUserPlus, FaEye } from "react-icons/fa";
 
 // componets
 import Home from "./components/admin-dashboard/Home";
+import AddEmployee from "./components/admin-dashboard/Employee/AddEmployee";
 const Component = ({name}) => {
   return (
     <>
       {name}
     </>
   )
-}
+};
+
 const icon = {
   className: "text-2xl",
 };
@@ -22,9 +24,21 @@ export const routes = [
   },
   {
     name: "employees",
-    path: "employees",
     icon: <FaUsers {...icon} />, 
-    element: <Component name={"employees"} />,
+    routes : [
+      {
+        name : "add employee",
+        path : "add-employee",
+        icon : <FaUserPlus {...icon}/>,
+        element : <AddEmployee />
+      }, 
+      {
+        name : "view employees",
+        path : "view-employee",
+        icon : <FaEye {...icon}/>,
+        element : <Component name={"view employee"} />,
+      },
+    ]
   },
   {
     name: "customers",
@@ -40,13 +54,13 @@ export const routes = [
         name: "revenue",
         path: "revenue",
         icon: <FaMoneyBillWave {...icon} />, 
-        element: <Component />,
+        element: <Component name={"revenue"} />,
       },
       {
         name: "salaries",
         path: "salaries",
         icon: <FaTasks {...icon} />, 
-        element: <Component />,
+        element: <Component name={"salaries"} />,
       },
     ],
   },
@@ -54,6 +68,6 @@ export const routes = [
     name: "settings",
     path: "settings",
     icon: <FaCog {...icon} />, 
-    element: <Component />,
+  element: <Component name={"settings"} />,
   },
 ];

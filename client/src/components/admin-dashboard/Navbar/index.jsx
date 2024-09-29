@@ -4,7 +4,7 @@ import { Transition } from '@headlessui/react';
 import { FaHome, FaBell, FaCog, FaChevronDown, FaSearch, FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa'; // Import dark/light mode icons
 import { useStore } from '../../../store';
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const {setOpenSidenav} = useStore();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useStore(); // Access theme state and toggle function
 
@@ -18,35 +18,9 @@ const Navbar = () => {
     <nav className={`${isDarkMode ? 'bg-black' : 'bg-white'} shadow-md relative z-20`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+
           <div className="flex items-center">
-            <div className="hidden md:block">
-              <div className="flex items-baseline space-x-4">
-                <Link
-                  to="/"
-                  className={`${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  } hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium`}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/users"
-                  className={`${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  } hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium`}
-                >
-                  Users
-                </Link>
-                <Link
-                  to="/analytics"
-                  className={`${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  } hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium`}
-                >
-                  Analytics
-                </Link>
-              </div>
-            </div>
+              <span className="logo "></span>
           </div>
 
           <div className="hidden md:block">
@@ -68,7 +42,7 @@ const Navbar = () => {
                 <FaBell className="h-6 w-6" />
               </button>
               <Link
-                to="/settings"
+                to="/admin-dashboard/settings"
                 className="ml-3 p-1 rounded-full text-gray-600 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <FaCog className="h-6 w-6" />
@@ -83,22 +57,22 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* <div className="-mr-2 flex md:hidden">
+          <div className="-mr-2 flex md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setOpenSidenav(true)}
               type="button"
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span className="sr-only">Open main menu</span>
-              {isOpen ? <FaChevronDown className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
+              { <FaBars className="h-6 w-6" />}
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
 
       {/* Breadcrumb */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'} py-2 px-4`}>
-        <div className="max-w-7xl mx-auto flex items-center space-x-2 text-sm text-gray-600">
+      <div className={`${isDarkMode ? 'bg-black text-white border rounded-lg border-white/20' : 'bg-gray-100'} py-2 px-4`}>
+        <div className="max-w-7xl mx-auto flex items-center space-x-2 text-sm">
           <FaHome className="h-4 w-4" />
           <span className="mx-1">/</span>
           <span>Dashboard</span>
