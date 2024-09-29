@@ -6,10 +6,24 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
-
+import { useStore } from "../../store";
 export function StatisticsCard({ color, icon, title, value, footer }) {
+  // Define colors for each card
+  const floatingContainerColor = {
+"Today's Money": "bg-[#303030]", // Dark gray for Today's Money
+"Today's Users": "bg-blue-500", // blue for Today's Users
+    "New Clients": "bg-green-500", // green for New Clients
+    "Sales": "bg-pink-500", // pink for Sales
+  };
+  const {isDarkMode} = useStore()
+
   return (
-    <Card className="border border-blue-gray-100 shadow-sm">
+    <Card className={`relative border border-blue-gray-100 ${isDarkMode ? ' bg-black text-white': 'bg-white'} shadow-lg -translate-y-4`}>
+      {/* Centered Floating Square Container with different colors */}
+      <div className={`absolute top-[-1rem] left-2 ${floatingContainerColor[title]} h-16 w-16 rounded-md flex items-center justify-center`}>
+        {/* Center the icon inside the colored square */}
+        {icon}
+      </div>
       <CardHeader
         variant="gradient"
         color={color}
@@ -17,13 +31,12 @@ export function StatisticsCard({ color, icon, title, value, footer }) {
         shadow={false}
         className="absolute grid h-12 w-12 place-items-center"
       >
-        {icon}
       </CardHeader>
       <CardBody className="p-4 text-right">
         <Typography variant="small" className="font-normal text-blue-gray-600">
           {title}
         </Typography>
-        <Typography variant="h4" color="blue-gray">
+        <Typography variant="h4" color="blue-gray" className="font-bold">
           {value}
         </Typography>
       </CardBody>

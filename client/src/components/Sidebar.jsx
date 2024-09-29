@@ -1,38 +1,38 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { Button, Typography } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { routes } from "../routes";
 import { useStore } from "../store";
 import UseClickOutside from "./UseClickOutside";
+
 export function Sidenav() {
-  const {openSidenav , setOpenSidenav , isDarkMode} = useStore();
+  const { openSidenav, setOpenSidenav, isDarkMode } = useStore();
   const [activeRoute, setActiveRoute] = useState(null);
   const ref = useRef();
 
-  UseClickOutside(ref ,() =>  setOpenSidenav(false));
+  UseClickOutside(ref, () => setOpenSidenav(false));
 
   const theme = isDarkMode ? "bg-black text-white" : "bg-white text-black";
 
   return (
     <motion.aside
-      ref = {ref}
+      ref={ref}
       animate={{ left: openSidenav ? 0 : "-100%" }}
       transition={{
-        duration : 0.5,
-        ease : "easeInOut"
+        duration: 0.5,
+        ease: "easeInOut",
       }}
       className={`${theme} transition-all duration-300     flex flex-col gap-10 overflow-auto m-5 w-80 rounded-lg shadow-xl p-3 px-5 md:static z-30 fixed top-0 left-0 bottom-0`}
     >
       <Link to="/">
-        <Typography className={`font-bold text-center text-2xl ${theme} uppercase tracking-wider p-2`}>
+        <Typography className="font-bold text-center text-2xl uppercase tracking-wider p-2">
           Admin Dashboard
         </Typography>
       </Link>
+    
 
       
         <ul className="w-full gap-4 flex flex-col flex-1">
@@ -60,26 +60,20 @@ export function Sidenav() {
                       }`}
                       fullWidth
                     >
-                      {route.icon || <FaChevronDown />} {/* Fallback Icon */}
-                      <Typography
-                        color="inherit"
-                        className="font-medium text-[1.4em] uppercase tracking-wider"
-                      >
-                        {route.name}
-                      </Typography>
-                    </Button>
-                  )}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
-      
+                      {route.name}
+                    
+                  </Button>
+                )}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
     </motion.aside>
   );
 }
 
-const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
+const SubMenu = ({ route, setActiveRoute, isDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -123,7 +117,7 @@ const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
         className="overflow-hidden"
       >
         {isOpen && route.routes && (
-          <ul className="pl-6 flex flex-col gap-0">
+          <ul className="pl-6 flex flex-col gap-2">
             {route.routes.map((subRoute, index) => (
               <li key={index} className="py-2">
                 <NavLink
@@ -133,9 +127,17 @@ const SubMenu = ({ route, setActiveRoute , isDarkMode }) => {
                 >
                   {({ isActive }) => (
                     <div className="flex gap-2 h-12">
-                      <span className={`w-[1px] h-[122%] relative ${isDarkMode ? "bg-white" : "bg-black"}`}>
+                      <span
+                        className={`w-[1px] h-[122%] relative ${
+                          isDarkMode ? "bg-white" : "bg-black"
+                        }`}
+                      >
                         {index !== 0 && index !== subRoute.length - 1 && (
-                          <div className={`absolute top-[-5px] w-2 h-2  rounded-full left-[-3px] ${isDarkMode ? "bg-white" : "bg-black"}`}></div>
+                          <div
+                            className={`absolute top-[-5px] w-2 h-2  rounded-full left-[-3px] ${
+                              isDarkMode ? "bg-white" : "bg-black"
+                            }`}
+                          ></div>
                         )}
                       </span>
                       <Button
